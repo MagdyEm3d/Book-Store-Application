@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Books List";
+}
+<!DOCTYPE html>
+<html lang="en">
+    <h1>Books Page</h1>
+    <hr></hr>
+<form asp-controller="Books" asp-action="Index" class="d-flex">
+    <input class="form-control me-sm-2" name="searchString" type="search" placeholder="Search by title..">
+    <input class="form-control me-sm-2" name="genre" type="search" placeholder="Search by genre..">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+</form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        .book-container {
+            background-color: purple;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+        }
+        h1{
+            text-align:center;
+        }
+
+        .book-image {
+            margin-right: 20px;
+        }
+
+        .book-details {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <a asp-action="Create" class="btn btn-primary">Add New Book</a>
+
+    @foreach (var item in Model)
+    {
+        <div class="book-container">
+            <div class="book-image">
+                <img class="rounded-circle w-25" src="@item.BookImgURL" alt="@item.BookTitle image" />
+            </div>
+            <div class="book-details">
+                <div>@Html.DisplayNameFor(model => model.BookTitle): @item.BookTitle</div>
+                <div>@Html.DisplayNameFor(model => model.BookPrice): @item.BookPrice</div>
+                <div>@Html.DisplayNameFor(model => model.BookPublicationDate): @item.BookPublicationDate</div>
+                <div class="mt-2">
+                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.BookId"><i class="bi bi-pencil-square"></i>Edit</a> |
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.BookId"><i class="bi bi-eye-fill"></i>Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.BookId"><i class="bi bi-trash-fill"></i>Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

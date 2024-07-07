@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Author>
+@{
+    ViewData["Title"] = "Actors List";
+}
+<h1 style="text-align: center;">Authors Page</h1>
+<hr/>
+<form asp-controller="Actors" asp-action="Index" class="d-flex">
+    <input class="form-control me-sm-2" name="searchString" type="search" placeholder="Search..">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+</form>
+<a asp-action="Create" class="btn btn-primary">Add New Author</a>
+<table class="table">
+    <thead>
+        <tr class="col">
+
+            <th>@Html.DisplayNameFor(model => model.AuthorName)</th>
+            <th>@Html.DisplayNameFor(model => model.AuthorBio)</th>
+            <th>@Html.DisplayNameFor(model => model.AuthorDateOfBirth)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr scope="row">
+               
+                <td class="pt-4">@item.AuthorName</td>
+                <td class="pt-4">@item.AuthorBio</td>
+                <td class="pt-4">@item.AuthorDateOfBirth</td>
+                <td class="pt-4">
+                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.AuthorId"><i class="bi bi-pencil-square"></i>Edit</a>|
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.AuthorId"> <i class="bi bi-eye-fill"></i>Details</a>|
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AuthorId"><i class="bi bi-trash-fill"></i>Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
